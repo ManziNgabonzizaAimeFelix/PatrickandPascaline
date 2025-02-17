@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pascaline & Patrick Wedding</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; }
+        .container { max-width: 800px; margin: auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); }
+        h1 { color: #002efc; }
+        .slideshow-container { max-width: 600px; position: relative; margin: auto; }
+        .slide { display: none; width: 100%; }
+        img { width: 100%; border-radius: 10px; }
+        .dropdown { margin: 20px; }
+        .responsibility-section { margin-top: 20px; padding: 20px; background: #ffebcd; border-radius: 10px; }
+        .responsibility-title { font-size: 20px; font-weight: bold; color: #0059ff; }
+        .responsibility-list { margin-top: 10px; font-weight: bold; color: #333; }
+        .image-container { margin-top: 10px; }
+        .image-container img { max-width: 100%; height: auto; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pascaline & Patrick Wedding</h1>
+        <div class="slideshow-container">
+            <img class="slide" src="image1.jpg" alt="Patrick & Pascaline">
+            <img class="slide" src="image2.jpg" alt="Patrick & Pascaline">
+            <img class="slide" src="image3.jpg" alt="Patrick & Pascaline">
+        </div>
+        
+        <div class="dropdown">
+            <label for="responsibility">Select Responsibility:</label>
+            <select id="responsibility" onchange="showPeople()">
+                <option value="">--Select--</option>
+                <option value="Les Filles">Les Filles</option>
+                <option value="Les jeunes mama">Les jeunes mama</option>
+                <option value="High table">High table</option>
+                <option value="Abasaza">Abasaza</option>
+                <option value="Protocol">Protocol</option>
+                <option value="Services">Services</option>
+            </select>
+        </div>
+        <div class="responsibility-section" id="responsibility-info">
+            <div class="responsibility-title">Responsibilities</div>
+            <div id="people" class="responsibility-list"></div>
+            <div id="image-container" class="image-container"></div>
+        </div>
+    </div>
+
+    <script>
+        let slideIndex = 0;
+        function showSlides() {
+            let slides = document.querySelectorAll(".slide");
+            slides.forEach(slide => slide.style.display = "none");
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 3000);
+        }
+        showSlides();
+
+        function showPeople() {
+            const responsibilities = {
+                "Les Filles": { people: ["Alliance Umuraza", "Alliance Wira", "Berna", "Rebecca", "Joseline", "Christiane"], image: "les_filles.jpg" },
+                "Les jeunes mama": { people: ["Ma Parfait", "Ma Chroe", "Ma Orno", "Ma Saluwa", "Ma Owen", "Ma Imena", "Odette", "Sandrine"], image: "jeunes_mama.jpg" },
+                "High table": { people: ["Ange Nikuze", "Nicole"], image: "high_table.jpeg" },
+                "Abasaza": { people: ["Grace", "Claudine"], image: "abasaza.jpeg" },
+                "Protocol": { people: ["Yves Dushime", "Denys", "Alexis", "Cardinal", "Anne", "Phanie", "Liliane", "Ange Kwiha", "Yvette", "Odila"], image: "protocol.png" },
+                "Services": { people: ["Emmy", "Rugema", "Baptista", "Olivier", "Vincent", "Valens", "Mizero", "Adeline", "Adeliphine", "Annualite", "Geraldine", "Jeanine", "Nickita", "Vestine", "Violette", "Cyuzuzo", "Ange", "Michel", "Angelo", "Theogene"], image: "services.jpeg" }
+            };
+            let selected = document.getElementById("responsibility").value;
+            let display = document.getElementById("people");
+            let imageContainer = document.getElementById("image-container");
+            if (responsibilities[selected]) {
+                display.innerHTML = responsibilities[selected].people.join(", ");
+                imageContainer.innerHTML = `<img src="${responsibilities[selected].image}" alt="${selected}">`;
+            } else {
+                display.innerHTML = "";
+                imageContainer.innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>
